@@ -5,11 +5,18 @@
             <div class="flex justify-between items-center">
                 <h1 class="m-4 text-3xl"> Users list </h1>
                 @if (session('message'))
-                    <div class="p-4 mb-4 text-sm text-white rounded-base bg-blue-300" role="alert">
-                    <span class="font-medium"> {{ session('message') }}</span>
+                    <div class="p-4 mb-4 text-sm text-fg-success-strong rounded-base bg-success-soft" role="alert">
+                        <span class="font-medium">{{ session('message') }}</span>
                     </div>
                 @endif
-                <a href="{{ route('users.create') }}" class="bg-blue-500 mr-4 cursor-pointer text-white px-3 h-10 py-2 rounded"> Create user </a>
+                <div class="flex gap-5">
+                    <form action="{{ route('users.index') }}" class="flex gap-x-2">
+                        @csrf
+                        <input type="text" name="query" class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" placeholder="Doe" />
+                        <button type="submit" class="text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">Search</button>
+                    </form>
+                    <a href="{{ route('users.create') }}" class="bg-blue-500 mr-4 cursor-pointer text-white px-3 h-10 py-2 rounded"> Create user </a>
+                </div>
             </div>
             <hr>
             <table class="w-full text-sm text-left rtl:text-right text-body">
@@ -41,14 +48,15 @@
                         <td class="px-6 py-4">
                             {{ $user->email }}
                         </td>
-                        <td class="px-6 py-4">
-                            <a href="{{ route('users.edit', $user) }}" class="text-white bg-green-400 box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
+                        <td class="px-6 py-4 flex">
+                            <a href="{{ route('users.edit', $user) }}" class="text-white mr-2 bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
                                 Edit
                             </a>
-                            <a  href="{{ route('users.destroy', $user) }}" class="text-white bg-red-500 box-border border border-transparent hover:bg-warning-strong focus:ring-4 focus:ring-warning-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
-                                Delete
-                            </a>
-
+                            <form action="{{ route('users.destroy', $user) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-white bg-danger box-border border border-transparent hover:bg-danger-strong focus:ring-4 focus:ring-danger-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none cursor-pointer">Delete</button>
+                            </form>
 
                         </td>
                     </tr>
@@ -56,7 +64,9 @@
 
                 </tbody>
             </table>
+            <div class="p-4">
             {{ $users->links() }}
+            </div>
         </div>
 
     </div>

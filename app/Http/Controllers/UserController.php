@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -10,11 +12,17 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::paginate();
+        $users = User::query();
 
-        return view('users.index', ['users' => $users]);
+        if($request->has('query'))
+        {
+            $users->where('name', 'like' , "%".$request->query('query')."%")
+                ->orWhere('email',  'like' , "%".$request->query('query')."%");
+        }
+
+        return view('users.index', ['users' => $users->paginate()]);
     }
 
     /**
@@ -28,19 +36,9 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        $request->validate([
-            'name' => 'string|required|min:3',
-            'email' => 'string|required|min:8|email',
-            'password' => 'string|required',
-        ]);
-
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => $request->password,
-        ]);
+        User::create($request->validated());
 
         return redirect()->route('users.index')->with('message', 'User created successfully');
     }
@@ -56,24 +54,37 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(User $user)
     {
-        dd("Edit");
+        return view('users.edit', [
+            'user' => $user,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        //
+        $validated = $request->validated();
+
+        if(!$validated['password'])
+        {
+            unset($validated['password']);
+        }
+
+        $user = $user->update($validated);
+
+        return redirect()->route('users.index')->with('message', 'User Updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(User $user)
     {
-        dd('Destory');
+        $user->delete();
+
+        return redirect()->route('users.index')->with('message', 'User Deleted successfully');
     }
 }
