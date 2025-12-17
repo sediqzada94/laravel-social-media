@@ -62,7 +62,6 @@ Building this social media app teaches you essential Laravel concepts:
 ## Development Commands
 
 - `composer run dev` - Start all development servers
-- `composer run test` - Run tests with Pest
 - `php artisan migrate` - Run database migrations
 - `npm run build` - Build assets for production
 
