@@ -1,62 +1,117 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel Social Media App
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A Facebook-like social media application built with Laravel 12 for beginners and intermediate developers to learn modern web development.
 
-## About Laravel
+## About This Project
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+This social media platform includes core features similar to Facebook:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **User Posts** - Create, edit, and share posts with images
+- **Social Feed** - Browse and interact with posts from other users
+- **File Uploads** - Share images and media content
+- **Search** - Find posts and content across the platform
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## What You Will Learn
 
-## Learning Laravel
+Building this social media app teaches you essential Laravel concepts:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **MVC Architecture** - Models, Views, Controllers structure
+- **Database Relationships** - User posts, categories, and social connections
+- **Authentication** - User registration, login, and sessions
+- **File Handling** - Image uploads and media management
+- **Frontend Integration** - Blade templates with TailwindCSS and Flowbite
+- **Modern Development** - Vite for asset building, real-time features
+- **Code Quality** - Laravel Pint for code formatting, Debugbar for debugging
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Requirements
 
-## Laravel Sponsors
+- PHP 8.2 or higher
+- Composer
+- Node.js and npm
+- SQLite (included) or MySQL/PostgreSQL
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Quick Setup
 
-### Premium Partners
+1. **Clone and install dependencies**
+   ```bash
+   git clone https://github.com/sediqzada94/laravel-social-media.git
+   cd laravel-social-media
+   composer install
+   npm install
+   ```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+2. **Environment setup**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
 
-## Contributing
+3. **Database setup**
+   ```bash
+   touch database/database.sqlite
+   php artisan migrate
+   ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+4. **Start development**
+   ```bash
+   composer run dev
+   ```
+   This starts Laravel server, queue worker, and Vite dev server together.
 
-## Code of Conduct
+## Development Commands
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- `composer run dev` - Start all development servers
+- `composer run test` - Run tests with Pest
+- `php artisan migrate` - Run database migrations
+- `npm run build` - Build assets for production
 
-## Security Vulnerabilities
+## Features Built
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- **Post Management** - Create, edit, delete posts with rich content
+- **Image Sharing** - Upload and display images in posts
+- **Social Feed** - Timeline view of all user posts
+- **Categories** - Tag posts with different topics
+- **Status System** - Draft, published, cancelled post states
+- **Search** - Find posts by title and content
+- **Responsive Design** - Mobile-friendly interface
+
+## Project Structure
+
+```
+app/
+├── Http/Controllers/    # Handle user requests (posts, feed, auth)
+├── Models/             # Database models (User, Post, Category)
+├── Observers/          # Model event observers
+└── Providers/          # Service providers
+
+resources/
+└── views/              # Blade templates (feed, posts, profiles)
+database/
+├── migrations/         # Database schema (users, posts, categories)
+└── seeders/           # Sample social media data
+```
+
+## Learning Path
+
+1. **User Authentication** - Understand login and registration
+2. **Post Models** - Learn social media data relationships
+3. **Feed Controllers** - See how social feeds work
+4. **Blade Views** - Build social media UI components
+5. **File Uploads** - Handle image sharing features
+6. **Database Design** - Study social media database structure
+
+## Tools Included
+
+- **Laravel Debugbar** - Debug queries and performance
+- **Laravel Pint** - Code formatting
+- **TailwindCSS** - Utility-first CSS
+- **Flowbite** - UI components
+
+## Getting Help
+
+- [Laravel Documentation](https://laravel.com/docs)
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-# laravel-social-media
+Open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
