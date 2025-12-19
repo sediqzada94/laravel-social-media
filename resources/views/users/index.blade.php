@@ -12,7 +12,7 @@
                 <div class="flex gap-5">
                     <form action="{{ route('users.index') }}" class="flex gap-x-2">
                         @csrf
-                        <input type="text" name="query" class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" placeholder="Doe" />
+                        <input type="text" name="query" value="{{ $searchQuery ?? '' }}" class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" placeholder="Doe" />
                         <button type="submit" class="text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">Search</button>
                     </form>
                     <a href="{{ route('users.create') }}" class="bg-blue-500 mr-4 cursor-pointer text-white px-3 h-10 py-2 rounded"> Create user </a>
@@ -43,10 +43,18 @@
                             {{ $user->id }}
                         </th>
                         <td class="px-6 py-4">
-                            {{ $user->name }}
+                            @if(request()->has('query') && request()->query('query'))
+                                {!! preg_replace('/(' . preg_quote(request()->query('query'), '/') . ')/i', '<mark class="bg-yellow-300">$1</mark>', e($user->name)) !!}
+                            @else
+                                {{ $user->name }}
+                            @endif
                         </td>
                         <td class="px-6 py-4">
-                            {{ $user->email }}
+                            @if(request()->has('query') && request()->query('query'))
+                                {!! preg_replace('/(' . preg_quote(request()->query('query'), '/') . ')/i', '<mark class="bg-yellow-300">$1</mark>', e($user->email)) !!}
+                            @else
+                                {{ $user->email }}
+                            @endif
                         </td>
                         <td class="px-6 py-4 flex">
                             <a href="{{ route('users.edit', $user) }}" class="text-white mr-2 bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
@@ -65,7 +73,7 @@
                 </tbody>
             </table>
             <div class="p-4">
-            {{ $users->links() }}
+            {{ $users->appends(request()->query())->links() }}
             </div>
         </div>
 
