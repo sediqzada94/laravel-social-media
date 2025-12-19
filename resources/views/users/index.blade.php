@@ -12,7 +12,7 @@
                 <div class="flex gap-5">
                     <form action="{{ route('users.index') }}" class="flex gap-x-2">
                         @csrf
-                        <input type="text" name="query" value="{{ $searchQuery ?? '' }}" class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" placeholder="Doe" />
+                        <input type="text" name="query" value="{{ request()->query('query') ?? '' }}" class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" placeholder="Doe" />
                         <button type="submit" class="text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">Search</button>
                     </form>
                     <a href="{{ route('users.create') }}" class="bg-blue-500 mr-4 cursor-pointer text-white px-3 h-10 py-2 rounded"> Create user </a>
@@ -73,7 +73,7 @@
                 </tbody>
             </table>
             <div class="p-4">
-            {{ $users->appends(request()->query())->links() }}
+            {{ $users->links() }}
             </div>
         </div>
 
