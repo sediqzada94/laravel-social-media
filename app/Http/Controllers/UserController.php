@@ -15,14 +15,15 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $users = User::query();
-
         if($request->has('query'))
         {
             $users->where('name', 'like' , "%".$request->query('query')."%")
                 ->orWhere('email',  'like' , "%".$request->query('query')."%");
         }
 
-        return view('users.index', ['users' => $users->paginate()]);
+        return view('users.index', [
+            'users' => $users->paginate(),
+        ]);
     }
 
     /**

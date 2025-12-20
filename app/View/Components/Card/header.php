@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components\card;
+namespace App\View\Components\Card;
 
 use Closure;
 use Illuminate\Contracts\View\View;
